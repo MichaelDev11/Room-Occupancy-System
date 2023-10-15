@@ -1,16 +1,19 @@
 #include <Arduino.h>
 
 // Declaration of variables and their respective pins
-int vacant1 = 11;
-int vacant2 = 9;
-int occupied1 = 10;
-int occupied2 = 8;
-int button2 = 3;
 int button1 = 2;
+int button2 = 3;
+int vacant1 = 4;
+int vacant2 = 6;
+int occupied1 = 7;
+int occupied2 = 8;
 
 // Setting the state of the buttons, this will allow the users to simply use a button to determine room occupancy
 int buttonState1 = 0;
 int buttonState2 = 0;
+
+bool bool_vacant1 = false;
+bool bool_vacant2 = false;
 
 void setup() {
     // LED lights are set as the outputs
@@ -44,22 +47,26 @@ void loop() {
   if ((buttonState1 % 2) == 0) {
     digitalWrite(vacant1, HIGH);
     digitalWrite(occupied1, LOW);
+    bool_vacant1 = true;
   } else {
     digitalWrite(vacant1, LOW);
     digitalWrite(occupied1, HIGH);
+    bool_vacant1 = false;
   }
 
   if ((buttonState2 % 2) == 0) {
     digitalWrite(vacant2, HIGH);
     digitalWrite(occupied2, LOW);
+    bool_vacant2 = true;
   } else {
     digitalWrite(vacant2, LOW);
     digitalWrite(occupied2, HIGH);
+    bool_vacant2 = false;
   }
 
   // Output button states to the Serial Monitor
-  Serial.println("Button State 1: " + String(buttonState1));
-  Serial.println("Button State 2: " + String(buttonState2));
+  Serial.println(bool_vacant1);
+  Serial.println(bool_vacant2);
 
   delay(1200);
 }
